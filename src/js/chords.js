@@ -37,24 +37,22 @@ export const findNotesInChord = () => {
   }
 
   // The second note, aka the Third, is 3 semitones up from the root if it's a minor chord, and 4 up if it's major.
-  // With inversions, the third does not move.
+  // With inversions, the third move up an octave if it's the second inversion.
   let secondNote;
   if (chordIsMajorOrMinor === "MAJOR") {
-    secondNote = notesArray[notesArrayIndex + 4];
+    chordInversionPosition === "2NDINVERSION"
+      ? (secondNote = notesArray[notesArrayIndex + 16])
+      : (secondNote = notesArray[notesArrayIndex + 4]);
   } else {
-    secondNote = notesArray[notesArrayIndex + 3];
+    chordInversionPosition === "2NDINVERSION"
+      ? (secondNote = notesArray[notesArrayIndex + 15])
+      : (secondNote = notesArray[notesArrayIndex + 3]);
   }
 
   // The third note, aka the Fifth, is 7 semitones up from the root also doesn't change between major or minor chords, just like the root.
-  // With inversions, the fifth will move up an octave if it's the 2nd inversion.
+  // With inversions, the fifth does not move.
   let thirdNote = notesArray[notesArrayIndex + 7];
-  if (chordInversionPosition === "2NDINVERSION") {
-    thirdNote = notesArray[notesArrayIndex + 19];
-  } else {
-    thirdNote = notesArray[notesArrayIndex + 7];
-  }
-  notesInChord = [firstNote, secondNote, thirdNote];
 
+  notesInChord = [firstNote, secondNote, thirdNote];
   console.log(notesInChord);
 };
-

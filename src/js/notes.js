@@ -34,13 +34,14 @@ export const notesArray = [
   "G#5",
   "A5",
   "A#5",
+  "B5"
 ];
 
 // pick a random index between 11 and 22, which is any note in the fourth octave.
 export let notesArrayIndex;
 export let noteName;
 export const pickRandomRootNote = () => {
-  const rndInt = Math.floor(Math.random() * 24);
+  const rndInt = Math.floor(Math.random() * 20);
   if (rndInt === notesArrayIndex) {
     console.log(
       "::: Same random note has been picked. Re-rolling the dice...."
