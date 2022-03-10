@@ -9,7 +9,6 @@ export const newPiano = () => {
     keyPressStyle: "vivid",
     // showNoteNames: "never",
   });
-
   piano.create();
   return piano;
 };

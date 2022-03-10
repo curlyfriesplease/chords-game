@@ -4,7 +4,9 @@
 } */
 
 #pianoContainer {
-  height: 100%;
+  min-width: 95vw;
+  min-height: 40vh;
+  height: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -15,4 +17,3 @@
   -ms-flex-pack: center;
   justify-content: center;
 }
-
