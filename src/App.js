@@ -1,28 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
 import { newChord } from './js/onclick';
+import { newPiano } from './js/piano.js'
+import React, { useEffect, useState, Component } from "react";
+
 
 function App() {
+
+let piano;
+
+  useEffect(() => {
+    piano = newPiano()
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" id="applogo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button id="newChordButton" onClick={newChord}>Pick a new chord</button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        <div id="pianoContainer">
+
+        </div>
+        <button id="newChordButton" onClick={() => newChord(piano)}>Pick a new chord</button>
+      
       </header>
     </div>
   );
 }
 
+//export const piano = newPiano()
 
 export default App;
