@@ -6,7 +6,7 @@ import {
   notesInChord,
 } from "./chords";
 import { pickRandomRootNote, noteName } from "./notes";
-import { pressKeys, unpressKeys, newPiano } from "./piano";
+import { pressKeys, unpressKeys } from "./piano";
 
 export const newChord = (piano) => {
   if (notesInChord) {
