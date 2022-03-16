@@ -1,0 +1,11 @@
+.noActiveScore {
+  color: white;
+}
+
+.previousAnswerCorrect {
+  color: green;
+}
+
+.previousAnswerWrong {
+  color: red;
+}

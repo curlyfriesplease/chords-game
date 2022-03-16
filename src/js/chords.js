@@ -3,6 +3,7 @@ import { notesArray, notesArrayIndex } from "./notes";
 export let chordIsMajorOrMinor;
 export let chordInversionPosition;
 export let notesInChord;
+export let minorMarker;
 
 // Func to randomly choose if it's major/minor, and which position.
 export const pickRandomChordType = () => {
@@ -10,8 +11,10 @@ export const pickRandomChordType = () => {
   //console.log("rndInt1 : " + rndInt1)
   if (rndInt1 === 1) {
     chordIsMajorOrMinor = "MAJOR";
+    minorMarker = ""
   } else {
     chordIsMajorOrMinor = "MINOR";
+    minorMarker = "m"
   }
 
   const rndInt2 = Math.floor(Math.random() * 3) + 1;
@@ -54,5 +57,5 @@ export const findNotesInChord = () => {
   let thirdNote = notesArray[notesArrayIndex + 7];
 
   notesInChord = [firstNote, secondNote, thirdNote];
-  console.log(notesInChord);
+  // console.log(notesInChord);
 };

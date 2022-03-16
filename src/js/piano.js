@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Instrument } from "piano-chart";
 import { notesInChord } from "./chords";
@@ -14,28 +15,28 @@ export const newPiano = () => {
 };
 
 export const unpressKeys = (piano) => {
-  console.log(
-    "unpressing keys " +
-      notesInChord[0] +
-      " + " +
-      notesInChord[1] +
-      " + " +
-      notesInChord[2]
-  );
+  // console.log(
+  //   "unpressing keys " +
+  //     notesInChord[0] +
+  //     " + " +
+  //     notesInChord[1] +
+  //     " + " +
+  //     notesInChord[2]
+  // );
   piano.keyUp(notesInChord[0]);
   piano.keyUp(notesInChord[1]);
   piano.keyUp(notesInChord[2]);
 };
 
 export const pressKeys = (piano) => {
-  console.log(
-    "pressing new keys " +
-      notesInChord[0] +
-      " + " +
-      notesInChord[1] +
-      " + " +
-      notesInChord[2]
-  );
+  // console.log(
+  //   "pressing new keys " +
+  //     notesInChord[0] +
+  //     " + " +
+  //     notesInChord[1] +
+  //     " + " +
+  //     notesInChord[2]
+  // );
   piano.keyDown(notesInChord[0]);
   piano.keyDown(notesInChord[1]);
   piano.keyDown(notesInChord[2]);
