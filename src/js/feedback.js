@@ -1,5 +1,5 @@
 import React from "react";
-import { currentScore } from "./onclick";
+
 
 export class Feedback extends React.Component {
   render() {
@@ -7,7 +7,7 @@ export class Feedback extends React.Component {
       <div id="feedbackDiv">
         <span id="feedbackText" class="noActiveScore"></span>
         <br />
-        Current score: <span id="displayScore">{currentScore}</span>
+        Current score: <span id="displayScore">{this.props.score}</span>
       </div>
     );
   }
