@@ -10,6 +10,7 @@ import { newPiano } from "./js/piano.js";
 import React, { useEffect } from "react";
 import { AnswerButton } from "./js/buttons.js";
 import { Feedback } from "./js/feedback";
+import { currentScore } from "./js/onclick";
 
 function App() {
   let piano;
@@ -34,7 +35,7 @@ function App() {
       <div id="contentBody">
         <div id="pianoContainer"></div>
         <br />
-        <Feedback />
+        <Feedback score={currentScore}/>
         <br />
         <div id="answerButtonsContainer">
           <div id="answerButtonsFirstRow" className="buttonsRow">
