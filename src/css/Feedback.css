@@ -9,3 +9,20 @@
 .previousAnswerWrong {
   color: red;
 }
+
+#feedbackDiv {
+  width: 50%;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+}
+
+#feedbackDiv  div {
+
+}
+
+#scoreAndTimer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

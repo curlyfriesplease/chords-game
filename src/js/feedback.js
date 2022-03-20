@@ -1,5 +1,5 @@
 import React from "react";
-
+import { CountDown } from "./timer";
 
 export class Feedback extends React.Component {
   render() {
@@ -7,21 +7,24 @@ export class Feedback extends React.Component {
       <div id="feedbackDiv">
         <span id="feedbackText" class="noActiveScore"></span>
         <br />
-        Current score: <span id="displayScore">{this.props.score}</span>
+        <div id="scoreAndTimer">
+          <CurrentScore /> <CountDown />{" "}
+        </div>
       </div>
     );
   }
 }
 
-export class Countdown extends React.Component {
+class CurrentScore extends React.Component {
   render() {
-    const { seconds } = this.state;
     return (
       <div>
-        <h1>Time Remaining: {seconds}</h1>
+        <p>Current score: <span id="displayScore">{this.props.score}</span></p>
       </div>
     );
   }
 }
-// TODO: Finish the above component using this
-// https://betterprogramming.pub/building-a-simple-countdown-timer-with-react-4ca32763dda7
+
+CurrentScore.defaultProps = {
+  score: "0"
+}
