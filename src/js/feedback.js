@@ -5,10 +5,11 @@ export class Feedback extends React.Component {
   render() {
     return (
       <div id="feedbackDiv">
-        <span id="feedbackText" class="noActiveScore"></span>
+        <span id="feedbackText" className="noActiveScore"></span>
         <br />
         <div id="scoreAndTimer">
-          <CurrentScore /> <CountDown />{" "}
+          <CurrentScore />
+          <CountDown id="countdownDiv" />
         </div>
       </div>
     );
@@ -19,12 +20,24 @@ class CurrentScore extends React.Component {
   render() {
     return (
       <div>
-        <p>Score: <span id="displayScore">{this.props.score}</span></p>
+        <p>
+          Score: <span id="displayScore">{this.props.score}</span>
+        </p>
       </div>
     );
   }
 }
 
 CurrentScore.defaultProps = {
-  score: "0"
+  score: "0",
+};
+
+export class ScoreResults extends React.Component {
+  render() {
+    return (
+      <div id="resultsContainer">
+        <h1>Results go here</h1>
+      </div>
+    );
+  }
 }
