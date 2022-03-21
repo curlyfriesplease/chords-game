@@ -19,7 +19,7 @@ class CurrentScore extends React.Component {
   render() {
     return (
       <div>
-        <p>Current score: <span id="displayScore">{this.props.score}</span></p>
+        <p>Score: <span id="displayScore">{this.props.score}</span></p>
       </div>
     );
   }

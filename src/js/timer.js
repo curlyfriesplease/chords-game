@@ -1,6 +1,5 @@
 import React from "react";
-
-//TODO: Trim down this function to what's necessary
+import $ from 'jquery';
 
 export const CountDown = ({ seconds = 4 }) => {
   const [paused, setPaused] = React.useState(false);
@@ -9,17 +8,20 @@ export const CountDown = ({ seconds = 4 }) => {
 
   const tick = () => {
     if (paused || over) return;
-    if (s === 0) setOver(true);
-    else {
+    if (s === 0) {
+      setOver(true);
+      $("#answerButtonsContainer").toggle("slow");
+      $("#resultsContainer").toggle("slow");
+    } else {
       setTime([s - 1]);
     }
   };
 
-//   const reset = () => {
-//     setTime(parseInt(seconds));
-//     setPaused(false);
-//     setOver(false);
-//   };
+  //   const reset = () => {
+  //     setTime(parseInt(seconds));
+  //     setPaused(false);
+  //     setOver(false);
+  //   };
 
   React.useEffect(() => {
     const timerID = setInterval(() => tick(), 1000); // every second, decrease timer by 1 sec
@@ -29,7 +31,7 @@ export const CountDown = ({ seconds = 4 }) => {
   return (
     <div>
       {/* <p>{`${s.toString().padStart(2, "0")}`}</p> */}
-      <p>{over ? "Time's up!" : `${s.toString().padStart(2, "0")}`}</p>
+      <p>{over ? "Time's up!" : `${s.toString().padStart(2)}`}</p>
       {/* <div>{over ? "Time's up!" : `${s.toString().padStart(2, "0")}`}</div> */}
       {/* <button onClick={() => setPaused(!paused)}>
         {paused ? "Resume" : "Pause"}
