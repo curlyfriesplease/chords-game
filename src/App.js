@@ -3,14 +3,15 @@ import "./css/Buttons.scss";
 import "./css/Header.css";
 import "./css/Piano.css";
 import "./css/Feedback.css";
+import "./css/Homescreen.css";
 import chordsLogo from "./media/chords.png";
 
 import { newChord } from "./js/onclick";
 import { newPiano } from "./js/piano.js";
 import React, { useEffect } from "react";
-import { AnswerButton, AnswerButtonsContainer } from "./js/buttons.js";
-import { Feedback } from "./js/feedback";
-import { currentScore } from "./js/onclick";
+
+import { ContentBody, HomeScreen } from "./js/mainscreens";
+// import $ from "jquery";
 
 export let piano;
 
@@ -32,26 +33,11 @@ function App() {
         <img src={chordsLogo} alt="Piano chord test" />
         <span className="material-icons">settings</span>
       </header>
-      <div id="contentBody">
-        <div id="pianoContainer"></div>
-        <br />
-        <Feedback score={currentScore} />
-        <br />
-
-       <AnswerButtonsContainer />
-
-      </div>
+      <div id="pianoContainer"></div>
+      <HomeScreen />
+      <ContentBody />
     </div>
   );
 }
 
-//export const piano = newPiano()
-
 export default App;
-
-{
-  /* <script>$("#homeButton" ).click(function() {
-  alert( "Handler for .click() called." );
-  newChord(piano)
-});</script> */
-}

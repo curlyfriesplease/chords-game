@@ -11,22 +11,25 @@
 }
 
 #feedbackDiv {
-  width: 50%;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   justify-content: center;
   align-content: center;
+  align-items: center;
 }
 
-#feedbackDiv  div {
+/* #feedbackDiv div {
 
-}
+} */
 
 #scoreAndTimer {
+  width: 80vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
 #resultsContainer{
-display: hidden
+display: none;
 }

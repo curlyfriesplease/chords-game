@@ -1,27 +1,32 @@
 import React from "react";
-import $ from 'jquery';
+import $ from "jquery";
 
-export const CountDown = ({ seconds = 4 }) => {
-  const [paused, setPaused] = React.useState(false);
+export const CountDown = ({ seconds = 90 }) => {
+  // const [paused, setPaused] = React.useState(false);
   const [over, setOver] = React.useState(false);
-  const [[s], setTime] = React.useState([seconds]); // IF THIS DOESN'T WORK TRY the FIRST S in []
+  const [[s], setTime] = React.useState([seconds]);
 
   const tick = () => {
-    if (paused || over) return;
+    if (over) return;
+    if ($("#contentBody").is(":hidden")) return;
     if (s === 0) {
-      setOver(true);
-      $("#answerButtonsContainer").toggle("slow");
-      $("#resultsContainer").toggle("slow");
+      endOfRound();
     } else {
       setTime([s - 1]);
     }
   };
 
-  //   const reset = () => {
-  //     setTime(parseInt(seconds));
-  //     setPaused(false);
-  //     setOver(false);
-  //   };
+  const endOfRound = () => {
+    setOver(true);
+    $("#answerButtonsContainer").toggle("normal"); // Hide all the buttons
+    $("#resultsContainer").toggle("normal"); // Show the results div instead of them
+  };
+
+  // const reset = () => {
+  //   setTime(parseInt(seconds));
+  //   setPaused(false);
+  //   setOver(false);
+  // };
 
   React.useEffect(() => {
     const timerID = setInterval(() => tick(), 1000); // every second, decrease timer by 1 sec
