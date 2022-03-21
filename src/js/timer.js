@@ -1,7 +1,7 @@
 import React from "react";
 import $ from "jquery";
 
-export const CountDown = ({ seconds = 90 }) => {
+export const CountDown = ({ seconds = 10 }) => {
   // const [paused, setPaused] = React.useState(false);
   const [over, setOver] = React.useState(false);
   const [[s], setTime] = React.useState([seconds]);
@@ -20,6 +20,17 @@ export const CountDown = ({ seconds = 90 }) => {
     setOver(true);
     $("#answerButtonsContainer").toggle("normal"); // Hide all the buttons
     $("#resultsContainer").toggle("normal"); // Show the results div instead of them
+    let score = [];
+    score[0] = $("#displayScore").text(); // Get the current displayed score
+    console.log(score);
+
+    let storedScores = JSON.parse(localStorage.scores) // Get the existing saved scores
+    storedScores.push(score)  // Add on the new score
+    localStorage.setItem("scores", JSON.stringify(storedScores)); // Save that to local storage
+
+    // let storedScores = JSON.parse(localStorage.scores)
+    console.log("stored scores are " + storedScores) 
+    $("#previousScores").text(storedScores)
   };
 
   // const reset = () => {

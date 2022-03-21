@@ -32,11 +32,13 @@ CurrentScore.defaultProps = {
   score: "0",
 };
 
-export class ScoreResults extends React.Component {
+
+
+export class ScoreResults extends React.Component {  
   render() {
     return (
       <div id="resultsContainer">
-        <h1>Results go here</h1>
+        <h1>Previous scores: <span id="previousScores"></span></h1>
       </div>
     );
   }
