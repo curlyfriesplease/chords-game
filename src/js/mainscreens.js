@@ -25,8 +25,6 @@ export class HomeScreen extends React.Component {
   }
 }
 
-
-
 export class ContentBody extends React.Component {
   render() {
     return (

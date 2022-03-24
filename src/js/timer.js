@@ -1,7 +1,7 @@
 import React from "react";
 import $ from "jquery";
 
-export const CountDown = ({ seconds = 10 }) => {
+export const CountDown = ({ seconds = 2 }) => {
   // const [paused, setPaused] = React.useState(false);
   const [over, setOver] = React.useState(false);
   const [[s], setTime] = React.useState([seconds]);
