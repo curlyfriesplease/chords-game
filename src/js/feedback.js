@@ -34,13 +34,16 @@ CurrentScore.defaultProps = {
 };
 
 export class ScoreResults extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div id="resultsContainer">
         <h4>
           Previous scores: <span id="previousScores"></span>
         </h4>
-          <ApexChart />
+        <ApexChart />
       </div>
     );
   }
@@ -49,13 +52,20 @@ export class ScoreResults extends React.Component {
 class ApexChart extends React.Component {
   constructor(props) {
     super(props);
-
     let storedScores = JSON.parse(localStorage.scores);
     // let storedScores = [6, 1, 2, 2, 1, 0, 3, 5, 7, 10]; // For testing
+    console.log(
+      "storedScores, which is type " +
+        typeof storedScores +
+        " : " +
+        storedScores
+    );
     let numberOfScores = storedScores.length;
+    // let numberOfScores = this.props.scores.length;
     let highestScore = Math.max.apply(Math, storedScores);
     console.log(storedScores);
-    console.log("highest score is " + highestScore)
+    console.log("highest score is " + highestScore);
+
     this.state = {
       series: [
         {
@@ -85,17 +95,18 @@ class ApexChart extends React.Component {
         },
         xaxis: {
           type: "numeric",
-          tickAmount: numberOfScores-1,
+          tickAmount: numberOfScores + 1,
           // range: XAXISRANGE,
           labels: {
             formatter: function (numberOfScores) {
               return "";
-            }
-          }
+            },
+          },
         },
         yaxis: {
           min: 0,
           max: highestScore + 1,
+          tickAmount: highestScore + 1,
         },
         // xaxis: {
         //   type: "numeric",
@@ -150,7 +161,9 @@ class ApexChart extends React.Component {
     };
   }
 
+
   render() {
+    // console.log(this.props)
     return (
       <div id="chart">
         <ReactApexChart

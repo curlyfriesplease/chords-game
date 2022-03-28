@@ -24,13 +24,13 @@ export const CountDown = ({ seconds = 2 }) => {
     score[0] = $("#displayScore").text(); // Get the current displayed score
     console.log(score);
 
-    let storedScores = JSON.parse(localStorage.scores) // Get the existing saved scores
-    storedScores.push(score)  // Add on the new score
+    let storedScores = JSON.parse(localStorage.scores); // Get the existing saved scores
+    storedScores.push(score); // Add on the new score
     localStorage.setItem("scores", JSON.stringify(storedScores)); // Save that to local storage
 
     // let storedScores = JSON.parse(localStorage.scores)
-    console.log("stored scores are " + storedScores) 
-    $("#previousScores").text(storedScores)
+    console.log("stored scores are " + storedScores);
+    $("#previousScores").text(storedScores);
   };
 
   // const reset = () => {
