@@ -10,7 +10,7 @@ import { newChord } from "./js/onclick";
 import { newPiano } from "./js/piano.js";
 import React, { useEffect } from "react";
 
-import { ContentBody, HomeScreen } from "./js/mainscreens";
+import { HomeScreen } from "./js/mainscreens";
 // import $ from "jquery";
 
 export let piano;
@@ -33,9 +33,9 @@ function App() {
         <img src={chordsLogo} alt="Piano chord test" />
         <span className="material-icons">settings</span>
       </header>
+
       <div id="pianoContainer"></div>
       <HomeScreen />
-      <ContentBody />
     </div>
   );
 }
