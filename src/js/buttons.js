@@ -15,10 +15,8 @@ export class AnswerButton extends React.Component {
     // eslint-disable-next-line eqeqeq
     if (chord == formattedChordName) {
       console.log("::: ✅ Correct! Button was clicked: " + chord);
-
       updateScore(1);
       console.log("::: Score is now " + currentScore);
-
       feedbackText.textContent = "Correct. That was " + formattedChordName;
       feedbackText.className = "previousAnswerCorrect";
     } else {
@@ -28,8 +26,7 @@ export class AnswerButton extends React.Component {
           ". Correct answer was: " +
           formattedChordName
       );
-
-      feedbackText.textContent = "Wrong. That was " + formattedChordName;
+      feedbackText.textContent = "That was " + formattedChordName;
       feedbackText.className = "previousAnswerWrong";
     }
   };

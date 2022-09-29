@@ -1,59 +1,124 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CountDown } from "./timer";
 import ReactApexChart from "react-apexcharts";
+import { AnswerButtonsContainer } from "./buttons";
+import $ from "jquery";
 
-export class Feedback extends React.Component {
-  render() {
-    return (
-      <div id="feedbackDiv">
-        <span id="feedbackText" className="noActiveScore"></span>
-        <br />
-        <div id="scoreAndTimer">
-          <CurrentScore />
-          <CountDown id="countdownDiv" />
+export function Feedback({gameInProgress, setGameInProgress}) {
+  const [currentScore, setCurrentScore] = React.useState([]);
+  const [previousScores, setPreviousScores] = React.useState([]);
+
+  const fetchPreviousScores = () => {
+    let storedScores = localStorage.getItem("scores"); // Get the existing saved scores
+    console.log(`ℹ️ ℹ️ ℹ️ Previous scores fetched. Storing this in Feedback state: ${storedScores}`);
+    setPreviousScores(storedScores);
+  };
+
+  const updatePreviousScores = (
+    currentScore,
+    previousScores,
+    setPreviousScores
+  ) => {
+    console.log("📜 📜 📜 Updating the previous scores 📜 📜 📜");
+    const newPreviousScores = previousScores.push(currentScore)
+    setPreviousScores(newPreviousScores); // Add current score to previous
+    localStorage.setItem("scores", newPreviousScores); // Save that to local storage
+    console.log(`📜 📜 📜 Previous scores updated to: ${JSON.stringify(newPreviousScores)}`);
+  };
+
+  const switchGameInProgressState = () => {
+    console.log("switching game progress state");
+    setGameInProgress((current) => !current);
+  };
+
+  const startOfRound = () => {
+    fetchPreviousScores()
+    console.log("⭐⭐⭐⭐⭐ START OF ROUND ⭐⭐⭐⭐⭐");
+    console.log(currentScore);
+    console.log(previousScores);
+    switchGameInProgressState()
+  }
+
+  const endOfRound = () => {
+    switchGameInProgressState()
+    console.log("✨✨✨ END OF ROUND ✨✨✨");
+    console.log(currentScore);
+    console.log(previousScores);
+    updatePreviousScores(currentScore, previousScores, setPreviousScores);
+    $("#previousScores").text(previousScores);
+  };
+
+  console.log(
+    `Feedback re-rendered, game progress value is currently ${gameInProgress}`
+  );
+
+  return (
+    <div id="feedbackDiv">
+      <span id="feedbackText" className="noActiveScore">
+        Go!
+      </span>
+      <br />
+      <div id="scoreAndTimer">
+        <CurrentScore currentScore={currentScore} />
+        <CountDown
+          id="countdownDiv"
+          endOfRound={endOfRound}
+        />
+        <div>
+          {gameInProgress ? (
+            <AnswerButtonsContainer />
+          ) : (
+            <ScoreResults previousScores={previousScores} />
+          )}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-class CurrentScore extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>
-          Score: <span id="displayScore">{this.props.score}</span>
-        </p>
-      </div>
-    );
-  }
+export function CurrentScore(currentScore) {
+  const scoreToDisplay =
+    currentScore.currentScore.length > 0
+      ? JSON.stringify(currentScore.currentScore)
+      : 0;
+  console.log(`score to display: ${scoreToDisplay}`);
+  return (
+    <div>
+      <p>
+        Score:{" "}
+        <span id="displayScore">{scoreToDisplay > 0 ? scoreToDisplay : 0}</span>
+      </p>
+    </div>
+  );
 }
 
-CurrentScore.defaultProps = {
-  score: "0",
-};
-
-export class ScoreResults extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div id="resultsContainer">
-        <h4>
-          Previous scores: <span id="previousScores"></span>
-        </h4>
-        <ApexChart />
-      </div>
-    );
-  }
+export function ScoreResults(previousScores) {
+  console.log("Displaying score results compo");
+  useEffect(() => {}, [previousScores]);
+  return (
+    <div id="resultsContainer">
+      <h4>
+        Previous scores: <span id="previousScores"></span>
+      </h4>
+      <ApexChart previousScores={previousScores} />
+    </div>
+  );
 }
 
 class ApexChart extends React.Component {
   constructor(props) {
     super(props);
-    let storedScores = JSON.parse(localStorage.scores);
     // let storedScores = [6, 1, 2, 2, 1, 0, 3, 5, 7, 10]; // For testing
+    let storedScores = [];
+    try {
+      if (props.previousScores.previousScores.length > 0) {
+        storedScores = JSON.parse(props.previousScores.previousScores);
+      } else {
+        storedScores = [0];
+      }
+    } catch (err) {
+      console.log(`Chart error: ${err}`);
+    }
     console.log(
       "storedScores, which is type " +
         typeof storedScores +
@@ -63,6 +128,7 @@ class ApexChart extends React.Component {
     let numberOfScores = storedScores.length;
     // let numberOfScores = this.props.scores.length;
     let highestScore = Math.max.apply(Math, storedScores);
+    console.log("📈 📈 📈 CHART: ");
     console.log(storedScores);
     console.log("highest score is " + highestScore);
 
@@ -82,7 +148,7 @@ class ApexChart extends React.Component {
         //   count: 7,
         // },
         stroke: {
-          width: 5,
+          width: 7,
           curve: "smooth",
         },
 
@@ -94,9 +160,11 @@ class ApexChart extends React.Component {
           enabledOnSeries: false,
         },
         xaxis: {
-          type: "numeric",
-          tickAmount: numberOfScores + 1,
+          // type: "numeric",
+          tickAmount: numberOfScores.length,
           // range: XAXISRANGE,
+          min: 1,
+          max: numberOfScores.length,
           labels: {
             formatter: function (numberOfScores) {
               return "";
@@ -160,7 +228,6 @@ class ApexChart extends React.Component {
       },
     };
   }
-
 
   render() {
     // console.log(this.props)
