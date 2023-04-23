@@ -8,11 +8,12 @@ import { CountDown } from "./timer.js";
 
 export function HomeScreen() {
   const [showStartScreen, setShowStartScreen] = useState(true);
-  const [gameInProgress, setGameInProgress] = useState(true);
+  const [gameInProgress, setGameInProgress] = useState(false);
 
   const startGame = () => {
     console.log("👍🏻 👍🏻 👍🏻 Starting a new game...");
     setShowStartScreen(false);
+    setGameInProgress(true);
     newChord(piano);
     if (localStorage.getItem("scores") === null) {
       console.log("No localStorage item found, creating empty array");

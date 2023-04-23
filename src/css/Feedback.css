@@ -19,10 +19,6 @@
   align-items: center;
 }
 
-/* #feedbackDiv div {
-
-} */
-
 #scoreAndTimer {
   width: 80vw;
   display: flex;
@@ -30,14 +26,14 @@
   justify-content: space-between;
 }
 
-#resultsContainer{
-display: none;
-width: 90vw;
-justify-content: center;
-align-content: center;
-align-items: center;
-position: absolute;
-left: 50%;
-transform: translate(-50%);
-max-width: 900px
+#resultsContainer {
+  display: none;
+  width: 90vw;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  max-width: 900px;
 }
