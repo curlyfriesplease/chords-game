@@ -6,9 +6,10 @@ import {
   findNotesInChord,
   notesInChord,
   minorMarker,
-} from "./chords";
-import { pickRandomRootNote, noteName } from "./notes";
-import { pressKeys, unpressKeys } from "./piano";
+} from './chords';
+import { pickRandomRootNote, noteName } from './notes';
+import { pressKeys, unpressKeys } from './piano';
+import { useContext } from 'react';
 
 export let formattedChordName;
 export let currentScore = 0;
@@ -25,10 +26,4 @@ export const newChord = (piano) => {
   );
   findNotesInChord();
   pressKeys(piano);
-};
-
-export const updateScore = (value) => {
-  currentScore += value;
-  const displayScore = document.getElementById("displayScore");
-  displayScore.innerText = currentScore;
 };

@@ -1,5 +1,5 @@
-import React from "react";
-import $ from "jquery";
+import React from 'react';
+import '../css/Feedback.css';
 
 export const CountDown = ({ endOfRound }) => {
   const seconds = 10;
@@ -24,7 +24,9 @@ export const CountDown = ({ endOfRound }) => {
   return (
     <div>
       {/* <p>{`${s.toString().padStart(2, "0")}`}</p> */}
-      <p>{over ? "Time's up!" : `${s.toString().padStart(2)}`}</p>
+      <p id="countdownP">
+        {over ? "Time's up!" : `${s.toString().padStart(2)}`}
+      </p>
       {/* <div>{over ? "Time's up!" : `${s.toString().padStart(2, "0")}`}</div> */}
       {/* <button onClick={() => setPaused(!paused)}>
         {paused ? "Resume" : "Pause"}

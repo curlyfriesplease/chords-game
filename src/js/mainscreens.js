@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from "react";
-import $ from "jquery";
-import { AnswerButtonsContainer } from "./buttons.js";
-import { Feedback, ScoreResults } from "./feedback";
-import { currentScore, newChord } from "./onclick";
-import { piano } from "../App.js";
-import { CountDown } from "./timer.js";
+import React, { useEffect, useState } from 'react';
+import { Feedback } from './feedback';
+import { newChord } from './onclick';
+import { piano } from '../App.js';
 
 export function HomeScreen() {
   const [showStartScreen, setShowStartScreen] = useState(true);
   const [gameInProgress, setGameInProgress] = useState(false);
 
   const startGame = () => {
-    console.log("👍🏻 👍🏻 👍🏻 Starting a new game...");
+    console.log('👍🏻 👍🏻 👍🏻 Starting a new game...');
     setShowStartScreen(false);
     setGameInProgress(true);
     newChord(piano);
-    if (localStorage.getItem("scores") === null) {
-      console.log("No localStorage item found, creating empty array");
-      localStorage.setItem("scores", [33]); // Create an empty array in local storage if absent
+    if (localStorage.getItem('scores') === null) {
+      console.log('No localStorage item found, creating empty array');
+      localStorage.setItem('scores', [33]); // Create an empty array in local storage if absent
     }
   };
   useEffect(() => {
-    console.log("Rerendering after showStartScreen change");
+    console.log('Rerendering after showStartScreen change');
   }, [showStartScreen]);
 
   return (

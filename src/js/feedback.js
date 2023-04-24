@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { CountDown } from './timer';
 import ReactApexChart from 'react-apexcharts';
 import { AnswerButtonsContainer } from './buttons';
+import { ScoreContext } from './scoreContext';
 import $ from 'jquery';
 import '../css/Feedback.css';
 
 export function Feedback({ gameInProgress, setGameInProgress }) {
-  const [currentScore, setCurrentScore] = React.useState([]);
   const [previousScores, setPreviousScores] = React.useState([]);
+  const { currentScore } = useContext(ScoreContext);
 
   const fetchPreviousScores = () => {
     let storedScores = localStorage.getItem('scores'); // Get the existing saved scores
@@ -22,7 +23,11 @@ export function Feedback({ gameInProgress, setGameInProgress }) {
     previousScores,
     setPreviousScores
   ) => {
-    console.log('📜 📜 📜 Updating the previous scores 📜 📜 📜');
+    console.group('📜 📜 📜 Updating previous scores 📜 📜 📜');
+    console.log(`Current score: ${currentScore}`);
+    console.log(`Previous scores: ${previousScores}`);
+    console.groupEnd();
+
     const newPreviousScores = previousScores.push(currentScore);
     setPreviousScores(newPreviousScores); // Add current score to previous
     localStorage.setItem('scores', newPreviousScores); // Save that to local storage
@@ -48,11 +53,14 @@ export function Feedback({ gameInProgress, setGameInProgress }) {
 
   const endOfRound = () => {
     switchGameInProgressState();
-    console.log('✨✨✨ END OF ROUND ✨✨✨');
+    console.group('✨✨✨ END OF ROUND ✨✨✨');
     console.log(currentScore);
     console.log(previousScores);
+    console.groupEnd();
     updatePreviousScores(currentScore, previousScores, setPreviousScores);
     $('#previousScores').text(previousScores);
+    const feedbackText = document.getElementById('feedbackText');
+    feedbackText.textContent = '';
   };
 
   console.log(
@@ -61,47 +69,40 @@ export function Feedback({ gameInProgress, setGameInProgress }) {
 
   return (
     <div id="feedbackDiv">
-      <span id="feedbackText" className="noActiveScore">
-        Go!
-      </span>
-      <br />
       <div id="scoreAndTimer">
         <CurrentScore currentScore={currentScore} />
+        <p id="feedbackText" className="noActiveScore">
+          Go!
+        </p>
         <CountDown id="countdownDiv" endOfRound={endOfRound} />
-        <div>
-          {gameInProgress ? (
-            <AnswerButtonsContainer />
-          ) : (
-            <ScoreResults previousScores={previousScores} />
-          )}
-        </div>
+      </div>
+      <div id="buttonsOrResultsContainer">
+        {gameInProgress ? (
+          <AnswerButtonsContainer />
+        ) : (
+          <ScoreResults previousScores={previousScores} />
+        )}
       </div>
     </div>
   );
 }
 
-export function CurrentScore(currentScore) {
-  const scoreToDisplay =
-    currentScore.currentScore.length > 0
-      ? JSON.stringify(currentScore.currentScore)
-      : 0;
-  console.log(`score to display: ${scoreToDisplay}`);
+export function CurrentScore({ currentScore }) {
   return (
     <div>
       <p>
-        Score:{' '}
-        <span id="displayScore">{scoreToDisplay > 0 ? scoreToDisplay : 0}</span>
+        Score: <span id="displayScore">{currentScore}</span>
       </p>
     </div>
   );
 }
 
-export function ScoreResults(previousScores) {
+export function ScoreResults({ previousScores }) {
   console.log('Displaying score results compo');
   // useEffect(() => {}, [previousScores]);
   return (
     <div id="resultsContainer">
-      <h4>Previous scores:</h4>
+      <h4>Previous scores: {previousScores}</h4>
       <ApexChart previousScores={previousScores} />
     </div>
   );

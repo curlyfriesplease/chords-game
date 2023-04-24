@@ -1,51 +1,49 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import { currentScore, formattedChordName } from "./onclick";
-import { updateScore, newChord } from "./onclick";
-import { piano } from "../App";
+import React from 'react';
+import { formattedChordName } from './onclick';
+import { newChord } from './onclick';
+import { piano } from '../App';
+import { useContext } from 'react';
+import { ScoreContext } from './scoreContext';
 
-export class AnswerButton extends React.Component {
-  clickActions = () => {
-    this.checkCorrectness(this.props.chordName);
+export const AnswerButton = ({ chordName }) => {
+  const clickActions = () => {
+    console.log('::: 🎼 AnswerButton clicked 🎼 chordName: ' + chordName);
+    checkCorrectness(chordName);
     newChord(piano);
   };
 
-  checkCorrectness = (chord) => {
-    const feedbackText = document.getElementById("feedbackText");
+  const { currentScore, setCurrentScore } = useContext(ScoreContext);
+
+  const checkCorrectness = (chord) => {
+    const feedbackText = document.getElementById('feedbackText');
     // eslint-disable-next-line eqeqeq
     if (chord == formattedChordName) {
-      console.log("::: ✅ Correct! Button was clicked: " + chord);
-      updateScore(1);
-      console.log("::: Score is now " + currentScore);
-      feedbackText.textContent = "Correct. That was " + formattedChordName;
-      feedbackText.className = "previousAnswerCorrect";
+      console.log('::: ✅ Correct! Button was clicked: ' + chord);
+      setCurrentScore(currentScore + 1);
+      console.log('::: Score is now ' + currentScore);
+      feedbackText.textContent = 'Correct. That was ' + formattedChordName;
+      feedbackText.className = 'previousAnswerCorrect';
     } else {
       console.log(
-        "::: ❌ Wrong. Button was clicked: " +
+        '::: ❌ Wrong. Button was clicked: ' +
           chord +
-          ". Correct answer was: " +
+          '. Correct answer was: ' +
           formattedChordName
       );
-      feedbackText.textContent = "That was " + formattedChordName;
-      feedbackText.className = "previousAnswerWrong";
+      feedbackText.textContent = 'That was ' + formattedChordName;
+      feedbackText.className = 'previousAnswerWrong';
     }
   };
 
-  render() {
-    return (
-      <div className="buttonBlock">
-        <button
-          className="answerButton bigClicky"
-          onClick={() => {
-            this.clickActions();
-          }}
-        >
-          {this.props.chordName}
-        </button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="buttonBlock">
+      <button className="answerButton bigClicky" onClick={clickActions}>
+        {chordName}
+      </button>
+    </div>
+  );
+};
 
 export class AnswerButtonsContainer extends React.Component {
   render() {
